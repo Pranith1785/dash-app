@@ -5,12 +5,14 @@ import dash
 from dash import dcc, html
 import plotly.graph_objects as go
 import plotly.express as px
+import dash_bootstrap_components as dbc
+
 #import dash_html_components as html 
 #import dash_core_components as dcc
 
 
 ## app initialisation
-app = dash.Dash()
+app = dash.Dash(external_stylesheets=[dbc.themes.DARKLY])
 
 
 df = px.data.gapminder().query("country=='India'")
@@ -48,11 +50,22 @@ def line_chart(df, df2):
     return fig 
 
 
-app.layout = html.Div(id = "Parent",
-                     children= [html.H1(id="h1",children="styling using html components",style={'textAlign':'center'}),
-                                html.Div(id="bar_div",children=[dcc.Graph(id="bar_plot",figure=bar_chart(df,df2))],style = {'width':'50%','display':'inline-block'}),
-                                html.Div(id="line_div",children=[dcc.Graph(id="line_plot",figure=line_chart(df, df2))],style = {'width':'50%','display':'inline-block'})     
-                    ])
+app.layout = dbc.Container([
+                    dbc.Row([dbc.Col([html.H1(id="h1",children="Styling using bootstrap components")],xl=12,lg=12,md = 12,sm=12,xs = 12)],style={'textAlign':'center','marginTop':30}),
+                    dbc.Row([dbc.Col([dcc.Graph(id = 'bar_plot',figure = bar_chart(df, df2))],xl=6,lg=6,md = 6,sm=12,xs = 12),
+                            dbc.Col([dcc.Graph(id = 'line_plot', figure = line_chart(df, df2))],xl=6,lg=6,md = 6,sm=12,xs = 12)
+                            ])
+
+
+
+                    ],fluid=True)
+
+
+# html.Div(id = "Parent",
+#                      children= [html.H1(id="h1",children="styling using html components",style={'textAlign':'center'}),
+#                                 html.Div(id="bar_div",children=[dcc.Graph(id="bar_plot",figure=bar_chart(df,df2))],style = {'width':'50%','display':'inline-block'}),
+#                                 html.Div(id="line_div",children=[dcc.Graph(id="line_plot",figure=line_chart(df, df2))],style = {'width':'50%','display':'inline-block'})     
+#                     ])
 
 
 
