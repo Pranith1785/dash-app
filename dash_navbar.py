@@ -5,7 +5,7 @@ from dash import dcc,html
 PLOTLY_LOGO = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
 
 ##App
-app = dash.Dash(external_stylesheets = [ dbc.themes.FLATLY])
+app = dash.Dash(external_stylesheets = [ dbc.themes.DARKLY])
 
 
 navbar = dbc.Navbar(id='navbar',
@@ -39,4 +39,4 @@ app.layout = html.Div(id = 'parent', children = [navbar,
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
